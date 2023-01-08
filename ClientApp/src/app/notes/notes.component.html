@@ -105,7 +105,7 @@
                 <div *ngIf="(decryptedNote.id != -1)">
                     <h3>{{decryptedNote.title}}</h3>
                     <br>
-                    <div [innerHTML]="note.content"></div>
+                    <div [innerHTML]="decryptedNote.content"></div>
                     <br>
                     <p>private note</p>
                 </div>
