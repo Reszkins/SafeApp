@@ -1,0 +1,4 @@
+<button *ngIf="!isUserAuthenticated()" type="submit" (mousedown)="login()">Login</button>
+<button *ngIf="!isUserAuthenticated()" type="submit" (mousedown)="register()">Register</button>
+<button *ngIf="isUserAuthenticated()" type="submit" (mousedown)="logout()">Logout</button>
+<button type="submit" (mousedown)="notes()" *ngIf="isUserAuthenticated">Notes</button>

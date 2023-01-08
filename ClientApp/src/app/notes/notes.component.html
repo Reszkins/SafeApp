@@ -1,0 +1,118 @@
+<h3 class="p-3 text-center">Notes</h3>
+
+<div *ngIf="!showNoteMode">
+<div *ngIf="!addNewMode">
+    <button type="submit" (mousedown)="returnToHomeScreen()">Go back to home screen</button>
+    <br>
+    <button type="submit" (mousedown)="addNew()">Add new note</button>
+    <br>
+    <div class="container" *ngIf="!publicNotesMode">
+        <button type="submit" (mousedown)="showPublic()">Show public notes</button>
+    </div>
+    <div class="container" *ngIf="publicNotesMode">
+        <button type="submit" (mousedown)="showUserNotes()">Show your notes</button>
+    </div>
+</div>
+
+<div class="container" *ngIf="!addNewMode">
+    <div class="container" *ngIf="!publicNotesMode">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let note of userNotes">
+                    <td>{{note.title}}</td>
+                    <td><button (mousedown)="showNote(note.id)">Show this note</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container" *ngIf="publicNotesMode">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let note of publicNotes">
+                    <td>{{note.title}}</td>
+                    <td><button (mousedown)="showNote(note.id)">Show this note</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf="addNewMode">
+    
+    <form class="form-control" #addNoteForm="ngForm" (ngSubmit)="addNote(addNoteForm)">
+        <div>
+            <h2 class="form-control-heading">Add new note</h2>
+            <br>
+            <label for="title" class="sr-only">Title</label>
+            <input id="title" name="title" ngModel class="form-control" required autofocus>
+            <br>
+            <label for="content" class="sr-only">Content</label>
+            <input id="content" name="content" ngModel class="form-control" required>
+            <br>
+            <input type="checkbox" id="public" name="public" value="Public" (change)="publicChange($event)">
+            <label for="public">Public note</label>
+            <br>
+            <input type="checkbox" id="encrypted" name="encrypted" value="Encrypted" (change)="encryptedChange($event)">
+            <label for="encrypted">Encrypted note</label>
+            <br>
+            <label for="encryptionPassword" class="sr-only">Password for encryption</label>
+            <input id="encryptionPassword" name="encryptionPassword" ngModel class="form-control">
+            <br>
+            <div *ngIf="addNewError" class="alert alert-danger">Cannot add that note. Make sure that you dont want to create public note with encryption.</div>
+            <button class="btn bth-lg btn-primary btn-block" type="submit">Submit</button>
+        </div>
+    </form>
+    <button (mousedown)="returnToList()">Go back to list</button>
+</div>
+</div>
+
+<div *ngIf="showNoteMode">
+    <div *ngFor="let note of allNotes">
+        <div *ngIf="(note.id == choosedNote)">
+            <div *ngIf="(note.encrypted == 0)">
+                <h3>{{note.title}}</h3>
+                <br>
+                <div [innerHTML]="note.content"></div>
+                <br>
+                <p *ngIf="(note.public == 1)">public note</p>
+                <br>
+                <p *ngIf="(note.public == 0)">private note</p>
+            </div>
+            <div *ngIf="(note.encrypted == 1)">
+                <div *ngIf="(decryptedNote.id == -1)">
+                    <h3>{{note.title}}</h3>
+                    <br>
+                    <p>encrypted note</p>
+                    <br>
+                    <form class="form-control" #decryptNoteForm="ngForm" (ngSubmit)="decryptNote(decryptNoteForm)">
+                        <label for="password" class="sr-only">Password for encryption</label>
+                        <input id="password" name="password" ngModel class="form-control">
+                        <button class="btn bth-lg btn-primary btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+                <div *ngIf="(decryptedNote.id != -1)">
+                    <h3>{{decryptedNote.title}}</h3>
+                    <br>
+                    <div [innerHTML]="note.content"></div>
+                    <br>
+                    <p>private note</p>
+                </div>
+            </div>        
+        </div>
+    </div>
+    <br>
+    <br>
+    <button (mousedown)="returnToList()">Go back to list</button>
+</div>
