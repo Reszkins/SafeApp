@@ -53,14 +53,26 @@ export class RegisterComponent {
       passedMatches += flag === true ? 1 : 0;
     }
 
-    force = 1
-    if(password.length < 6) force = 0
-    if(password.length > 10) force = 2
+    force = 1;
+    if(password.length < 6){
+      force = 0;
+    } 
+    if(password.length > 10){
+      force = 2;
+    } 
 
-    if(passedMatches === 1) force += 1
-    if(passedMatches === 2) force += 1
-    if(passedMatches === 3) force += 1
-    if(passedMatches === 4) force += 1
+    if(passedMatches === 1){
+      force++;
+    } 
+    if(passedMatches === 2){
+      force = force + 2;
+    } 
+    if(passedMatches === 3){
+      force = force + 3;
+    } 
+    if(passedMatches === 4){
+      force = force + 4;
+    } 
 
     return force;
   }
