@@ -7,7 +7,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent{
 
   constructor(private router: Router, private jwtHelper: JwtHelperService) { }
 

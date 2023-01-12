@@ -17,8 +17,8 @@ namespace SafeApp.Utils
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenOptions = new JwtSecurityToken(
-                issuer: "http://localhost:8383",
-                audience: "http://localhost:8383",
+                issuer: "https://localhost:8383",
+                audience: "https://localhost:8383",
                 claims: new List<Claim> { new Claim("userName", userName)},
                 expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: signingCredentials

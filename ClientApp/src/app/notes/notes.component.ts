@@ -29,9 +29,9 @@ export class NotesComponent implements OnInit {
   }
 
   async loadNotes(){
-      this.userNotes = await this.http.get<Note[]>("http://localhost:8383/api/notes/usernotes/").toPromise();
+      this.userNotes = await this.http.get<Note[]>("https://localhost:8383/api/notes/usernotes/").toPromise();
 
-      this.publicNotes = await this.http.get<Note[]>("http://localhost:8383/api/notes/public/").toPromise();
+      this.publicNotes = await this.http.get<Note[]>("https://localhost:8383/api/notes/public/").toPromise();
 
       let flag = false;
       for(let i=0;i<this.userNotes.length;i++){
@@ -69,6 +69,8 @@ export class NotesComponent implements OnInit {
     this.showNoteMode = false;
     this.choosedNote = -1;
     this.decryptedNote = new Note();
+    this.publicChecked = false;
+    this.encryptedChecked = false;
     await this.loadNotes();
   }
 
@@ -89,7 +91,7 @@ export class NotesComponent implements OnInit {
     localStorage.setItem("encrypted", String(this.encryptedChecked));
 
     try{
-      let response = await this.http.post("http://localhost:8383/api/notes/add", credentials).toPromise();
+      let response = await this.http.post("https://localhost:8383/api/notes/add", credentials).toPromise();
       await this.returnToList();
     }
     catch(err){
@@ -107,11 +109,12 @@ export class NotesComponent implements OnInit {
 
   async decryptNote(form: NgForm){
     try{
-      this.decryptedNote = await this.http.get<Note>("http://localhost:8383/api/notes/decrypt/" + this.choosedNote + "/" + form.value.password).toPromise();
+      this.decryptedNote = await this.http.get<Note>("https://localhost:8383/api/notes/decrypt/" + this.choosedNote + "/" + form.value.password).toPromise();
     }
     catch(err){
       console.log(err);
     }
+
   }
     
   showUserNotes(){

@@ -7,7 +7,7 @@
         <input id="username" name="username" ngModel class="form-control" required autofocus>
         <br>
         <label for="password" class="sr-only">Password</label>
-        <input id="password" name="password" ngModel class="form-control" required #pass>
+        <input id="password" name="password" type="password" ngModel class="form-control" required #pass>
         <div *ngIf="pass.value.length < 8">
             Name must be at least 8 characters long.
         </div>

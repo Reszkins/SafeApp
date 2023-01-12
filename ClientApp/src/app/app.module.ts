@@ -33,6 +33,7 @@ export function tokenGetter(){
       config: {
         tokenGetter: tokenGetter,
         allowedDomains: ["localhost:8383"],
+        //allowedDomains: ["localhost:44304"],
         disallowedRoutes: []
       }
     })

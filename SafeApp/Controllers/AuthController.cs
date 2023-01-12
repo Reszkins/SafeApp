@@ -59,7 +59,8 @@ namespace SafeApp.Controllers
         [HttpPost, Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto user)
         {
-            if (await _accountService.GetUser(user.UserName) is not null) return BadRequest("The username is taken.");
+            if (await _accountService.GetUser(user.UserName) is not null) return BadRequest("Invalid username or password.");
+            if (user.Password.Length < 8) return BadRequest("Invalid username or password.");
 
             using var hmac = new HMACSHA512();
 

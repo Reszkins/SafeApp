@@ -20,16 +20,26 @@ services:
       context: .
       dockerfile: SafeApp/Dockerfile
     ports:
-      - "8383:80"
+      - "8382:80"
+      - "8383:443"
+    environment:
+      ASPNETCORE_URLS: "https://+:443;http://+:80"
+      ASPNETCORE_HTTPS_PORT: "8383"
+      ASPNETCORE_ENVIRONMENT: "Development"
     depends_on:
       - postgresql_database
+    volumes:
+      - ${APPDATA}\Microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
 
   saveclientapp:
     image: saveclientapp
     build:
       dockerfile: ClientApp/Dockerfile
     ports:
-      - "4569:80"
+      - "4569:4569"
+    environment:
+      VIRTUAL_HOST: "safeapp.com"
     volumes:
       - "angular:/usr/src/app"
     depends_on:

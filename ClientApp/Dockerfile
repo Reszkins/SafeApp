@@ -9,4 +9,8 @@ RUN npm run build --dev
 RUN export NODE_OPTIONS=--openssl-legacy-provider
 
 FROM nginx:latest
+COPY /ClientApp/nginx.conf /etc/nginx/conf.d/default.conf
+COPY /ClientApp/certs /etc/nginx/certs
 COPY --from=node /app/dist/ClientApp /usr/share/nginx/html
+
+CMD ["nginx", "-g", "daemon off;"]

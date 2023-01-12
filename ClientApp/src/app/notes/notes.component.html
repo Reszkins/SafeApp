@@ -67,7 +67,7 @@
             <input type="checkbox" id="encrypted" name="encrypted" value="Encrypted" (change)="encryptedChange($event)">
             <label for="encrypted">Encrypted note</label>
             <br>
-            <label for="encryptionPassword" class="sr-only">Password for encryption</label>
+            <label for="encryptionPassword" type="password" class="sr-only">Password for encryption</label>
             <input id="encryptionPassword" name="encryptionPassword" ngModel class="form-control">
             <br>
             <div *ngIf="addNewError" class="alert alert-danger">Cannot add that note. Make sure that you dont want to create public note with encryption.</div>
@@ -98,7 +98,7 @@
                     <br>
                     <form class="form-control" #decryptNoteForm="ngForm" (ngSubmit)="decryptNote(decryptNoteForm)">
                         <label for="password" class="sr-only">Password for encryption</label>
-                        <input id="password" name="password" ngModel class="form-control">
+                        <input id="password" name="password" type="password" ngModel class="form-control">
                         <button class="btn bth-lg btn-primary btn-block" type="submit">Submit</button>
                     </form>
                 </div>

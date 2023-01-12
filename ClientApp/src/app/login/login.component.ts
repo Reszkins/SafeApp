@@ -21,7 +21,7 @@ export class LoginComponent {
     }
 
     try{
-      let response = await this.http.post("http://localhost:8383/api/auth/login", credentials).toPromise();
+      let response = await this.http.post("https://localhost:8383/api/auth/login", credentials).toPromise();
       const token = (<any>response).token;
       localStorage.setItem("jwt", token);
       localStorage.setItem("username", credentials.username)
